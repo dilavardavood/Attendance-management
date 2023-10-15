@@ -12,6 +12,14 @@ public class Student {
     private String firstName;
     private String lastName;
     private String email;
+    private String dob;
+    private String imageUrl;
+    private String mobileNo;
+    private String guardian;
+    private String guardianNumber;
+    private String className;
+    private String updatedBy;
+    private String updatedOn;
 
     public int getRollNo() {
         return rollNo;
@@ -109,18 +117,7 @@ public class Student {
         this.updatedOn = updatedOn;
     }
 
-    private String dob;
-    private String imageUrl;
-    private String mobileNo;
-    private String guardian;
-    private String guardianNumber;
-    private String className;
-    private String updatedBy;
-    private String updatedOn;
-
-
-
-    // Getters and setters for all fields
+// Getters and setters for all fields
 
     // Constructors, additional fields, and methods as needed
 }

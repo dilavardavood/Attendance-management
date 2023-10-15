@@ -1,15 +1,13 @@
-// app/controllers/StudentController.java
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import models.students.Student;
+import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Result;
-import play.twirl.api.Content;
+import play.mvc.*;
 import services.StudentService;
-
 import javax.inject.Inject;
 import java.util.List;
-
 public class StudentController extends Controller {
     private final StudentService studentService;
 
@@ -18,28 +16,57 @@ public class StudentController extends Controller {
         this.studentService = studentService;
     }
 
-    public Result getAllStudents() {
+    public Result getAllStudents(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        System.out.println(json);
         List<Student> students = studentService.getAllStudents();
-        return ok((Content) students);
+        return ok(Json.toJson(students));
     }
 
-    public Result addStudent() {
-        Student student = new Student();
-        // Set student details
-        student.setRollNo(2);
-        student.setFirstName("Jane");
-        student.setLastName("Doe");
-        student.setEmail("jane.doe@example.com");
-        student.setDob("1992-05-20");
-        student.setImageUrl("http://example.com/jane.jpg");
-        student.setMobileNo("0987654321");
-        student.setGuardian("John Doe");
-        student.setGuardianNumber("1234567890");
-        student.setClassName("Class B");
-        student.setUpdatedBy("Admin");
+//    public Result getStudentById(Http.Request request){
+//        JsonNode json = request.body().asJson();
+//        System.out.println(Json.fromJson(json, Student.class).getRollNo());
+//        Student student = studentService.getStudentById(Json.fromJson(json, Student.class));
+//        return ok(Json.toJson(student));
+//    }
+    public Result getStudentById(Http.Request request) {
+        JsonNode json = request.body().asJson();
 
-        studentService.addStudent(student);
+        if (json == null) {
+            return badRequest("Expecting JSON data");
+        }
 
-        return ok("Student added successfully");
+        try {
+
+            Student student = Json.fromJson(json, Student.class);
+            Student retrievedStudent = studentService.getStudentById(student);
+
+            if (retrievedStudent != null) {
+                return ok(Json.toJson(retrievedStudent));
+            } else {
+                return notFound("Student not found");
+            }
+        } catch (Exception e) {
+            return internalServerError("Error retrieving student: " + e.getMessage());
+        }
     }
+
+
+    public Result addStudent(Http.Request request) {
+        JsonNode json = request.body().asJson();
+
+        if (json == null) {
+            return badRequest("Expecting JSON data");
+        }
+
+        try {
+            // Deserialize JSON into a Student object
+            Student student = Json.fromJson(json, Student.class);
+            studentService.addStudent(student);
+            return ok("Student added successfully");
+        } catch (Exception e) {
+            return internalServerError("Error adding student: " + e.getMessage());
+        }
+    }
+
 }

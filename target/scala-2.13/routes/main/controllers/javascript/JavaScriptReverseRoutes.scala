@@ -19,6 +19,26 @@ package controllers.javascript {
 
   
     // @LINE:6
+    def addStudent: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.StudentController.addStudent",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "addStudent"})
+        }
+      """
+    )
+  
+    // @LINE:8
+    def getStudentById: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.StudentController.getStudentById",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "getStudentById"})
+        }
+      """
+    )
+  
+    // @LINE:10
     def getAllStudents: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.StudentController.getAllStudents",
       """
@@ -30,7 +50,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:9
+  // @LINE:13
   class ReverseAssets(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -38,7 +58,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:9
+    // @LINE:13
     def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Assets.versioned",
       """

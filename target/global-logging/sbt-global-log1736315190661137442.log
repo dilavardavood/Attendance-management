@@ -9,8 +9,8 @@
 [0m[[0m[0mdebug[0m] [0m[0m> Exec(onFailure loadFailed, None, None)[0m
 [0m[[0m[0mdebug[0m] [0m[0m> Exec(loadp, None, None)[0m
 [0m[[0m[0minfo[0m] [0m[0mwelcome to sbt 1.7.2 (Ubuntu Java 11.0.20.1)[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: plugins took 83.353844ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: defsScala took 0.300362ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: plugins took 85.055406ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: defsScala took 0.339578ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Scanning directory /home/stark/.sbt/1.0/plugins[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Found non-root projects [0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/stark/.sbt/1.0/plugins, returning: ()[0m
@@ -27,27 +27,27 @@
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))[0m
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))[0m
 [0m[[0m[0mdebug[0m] [0m[0m  :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)[0m
-[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 16.785984 ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m          Load.resolveProject(global-plugins) took 36.53496ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m        Load.loadTransitive: finalizeProject(Project(id global-plugins, base: /home/stark/.sbt/1.0/plugins, plugins: List(<none>))) took 83.078453ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 19.097215 ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m          Load.resolveProject(global-plugins) took 51.128716ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m        Load.loadTransitive: finalizeProject(Project(id global-plugins, base: /home/stark/.sbt/1.0/plugins, plugins: List(<none>))) took 100.030397ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/stark/.sbt/1.0/plugins, returning: (global-plugins)[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: loadedProjectsRaw took 104.758782ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: cleanEvalClasses took 0.199303ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit(file:/home/stark/.sbt/1.0/plugins/, ...) took 196.850403ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: load took 332.143457ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: resolveProjects took 5.335096ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: finalTransforms took 50.101741ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: config.delegates took 5.806417ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: Def.make(settings)... took 390.363654ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: structureIndex took 69.116744ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: mkStreams took 1.12335ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: loadedProjectsRaw took 124.910983ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: cleanEvalClasses took 0.242991ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit(file:/home/stark/.sbt/1.0/plugins/, ...) took 220.17305ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: load took 393.778038ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: resolveProjects took 7.285738ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: finalTransforms took 95.176491ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: config.delegates took 7.711034ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: Def.make(settings)... took 368.798998ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: structureIndex took 89.358227ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: mkStreams took 1.366937ms[0m
 [0m[[0m[0minfo[0m] [0m[0mloading global plugins from /home/stark/.sbt/1.0/plugins[0m
 [0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.defaultLoad until apply took 1750.309726ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: plugins took 14.32252ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: defsScala took 0.007099ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.defaultLoad until apply took 1797.173296ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: plugins took 14.63346ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: defsScala took 0.007668ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Scanning directory /home/stark/Documents/attendance/project[0m
-[0m[[0m[0mdebug[0m] [0m[0m            Load.loadUnit: mkEval took 7.265529ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m            Load.loadUnit: mkEval took 6.134845ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Found non-root projects [0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/stark/Documents/attendance/project, returning: ()[0m
 [0m[[0m[0mdebug[0m] [0m[0mdeducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))[0m
@@ -63,27 +63,27 @@
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))[0m
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))[0m
 [0m[[0m[0mdebug[0m] [0m[0m  :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)[0m
-[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 1.524473 ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 1.269159 ms[0m
 [0m[[0m[0minfo[0m] [0m[0mloading settings for project attendance-build from plugins.sbt ...[0m
-[0m[[0m[0mdebug[0m] [0m[0m              Load.resolveProject(attendance-build) took 3.648377ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m            Load.loadTransitive: finalizeProject(Project(id attendance-build, base: /home/stark/Documents/attendance/project, plugins: List(<none>))) took 5.622188ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m              Load.resolveProject(attendance-build) took 3.159211ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m            Load.loadTransitive: finalizeProject(Project(id attendance-build, base: /home/stark/Documents/attendance/project, plugins: List(<none>))) took 4.86557ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/stark/Documents/attendance/project, returning: (attendance-build)[0m
-[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: loadedProjectsRaw took 116.740854ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: cleanEvalClasses took 3.030947ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m        Load.loadUnit(file:/home/stark/Documents/attendance/project/, ...) took 134.928916ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: load took 136.323145ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: resolveProjects took 0.128598ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: finalTransforms took 11.433245ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: config.delegates took 0.306292ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: Def.make(settings)... took 78.568411ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: structureIndex took 25.891887ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: mkStreams took 0.003025ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: loadedProjectsRaw took 93.970875ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: cleanEvalClasses took 2.247298ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m        Load.loadUnit(file:/home/stark/Documents/attendance/project/, ...) took 111.555632ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: load took 112.601231ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: resolveProjects took 0.105651ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: finalTransforms took 8.963112ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: config.delegates took 0.37481ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: Def.make(settings)... took 72.422177ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: structureIndex took 23.382205ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: mkStreams took 0.002158ms[0m
 [0m[[0m[0minfo[0m] [0m[0mloading project definition from /home/stark/Documents/attendance/project[0m
 [0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: plugins took 717.320832ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: defsScala took 0.012875ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: plugins took 640.356044ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: defsScala took 0.011309ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Scanning directory /home/stark/Documents/attendance[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: mkEval took 0.231158ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: mkEval took 0.148892ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Found root project root w/ remaining [0m
 [0m[[0m[0mdebug[0m] [0m[0mdeducing auto plugins based on known facts Set(Atom(play.sbt.PlayJava), Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))[0m
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))[0m
@@ -169,21 +169,21 @@
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(com.typesafe.sbt.web.SbtWeb),Set(Atom(com.typesafe.sbt.jse.SbtJsEngine)))[0m
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(com.typesafe.sbt.jse.SbtJsEngine),Set(Atom(com.typesafe.sbt.jse.SbtJsTask))))[0m
 [0m[[0m[0mdebug[0m] [0m[0m  :: deduced result: Matched(sbt.plugins.CorePlugin,play.sbt.PlayJava,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,play.sbt.PlayWeb,play.twirl.sbt.SbtTwirl,sbt.plugins.JvmPlugin,play.sbt.PlayService,play.sbt.PlayFilters,play.sbt.PlayLayoutPlugin,play.sbt.routes.RoutesCompiler,com.typesafe.sbt.jse.SbtJsTask,com.typesafe.sbt.packager.archetypes.JavaServerAppPackaging,sbt.plugins.SemanticdbPlugin,sbt.plugins.JUnitXmlReportPlugin,play.sbt.PlayLogback,sbt.plugins.MiniDependencyTreePlugin,com.typesafe.sbt.jse.SbtJsEngine,play.sbt.PlayAkkaHttpServer,com.typesafe.sbt.web.SbtWeb,com.typesafe.sbt.packager.archetypes.JavaAppPackaging,com.typesafe.sbt.packager.rpm.RpmPlugin,com.typesafe.sbt.packager.archetypes.scripts.BashStartScriptPlugin,com.typesafe.sbt.packager.windows.WindowsPlugin,com.typesafe.sbt.packager.archetypes.scripts.BatStartScriptPlugin,com.typesafe.sbt.packager.docker.DockerPlugin,com.typesafe.sbt.packager.debian.DebianPlugin,com.typesafe.sbt.packager.universal.UniversalPlugin,com.typesafe.sbt.packager.linux.LinuxPlugin,com.typesafe.sbt.SbtNativePackager)[0m
-[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 8.478617 ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 8.432793 ms[0m
 [0m[[0m[0minfo[0m] [0m[0mloading settings for project root from build.sbt ...[0m
-[0m[[0m[0mdebug[0m] [0m[0m        Load.resolveProject(root) took 86.674508ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.loadTransitive: finalizeProject(Project(id root, base: /home/stark/Documents/attendance, plugins: List(play.sbt.PlayJava))) took 97.622872ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m        Load.resolveProject(root) took 84.565356ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadTransitive: finalizeProject(Project(id root, base: /home/stark/Documents/attendance, plugins: List(play.sbt.PlayJava))) took 94.757418ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/stark/Documents/attendance, returning: (root)[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: loadedProjectsRaw took 163.746018ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: cleanEvalClasses took 0.803486ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Load.loadUnit(file:/home/stark/Documents/attendance/, ...) took 882.513595ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: load took 883.930442ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: resolveProjects took 0.091062ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: finalTransforms took 16.452155ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: config.delegates took 1.091149ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: Def.make(settings)... took 92.218439ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: structureIndex took 32.849124ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: mkStreams took 0.003253ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: loadedProjectsRaw took 143.392203ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: cleanEvalClasses took 0.710377ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Load.loadUnit(file:/home/stark/Documents/attendance/, ...) took 784.991451ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: load took 786.333063ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: resolveProjects took 0.091608ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: finalTransforms took 19.169931ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: config.delegates took 0.728405ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: Def.make(settings)... took 96.671181ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: structureIndex took 27.136108ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: mkStreams took 0.002513ms[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m  __              __[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m  \ \     ____   / /____ _ __  __[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m   \ \   / __ \ / // __ `// / / /[0m[0m
@@ -204,7 +204,12 @@
 [0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / run[0m
 [0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
 [0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
-[0m[[0m[0minfo[0m] [0m[0mcompiling 4 Scala sources and 17 Java sources to /home/stark/Documents/attendance/target/scala-2.13/classes ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:attendance-management[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Java source to /home/stark/Documents/attendance/target/scala-2.13/classes ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mForcing garbage collection...[0m
 [0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
 [0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:attendance-management[0m
 [0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
