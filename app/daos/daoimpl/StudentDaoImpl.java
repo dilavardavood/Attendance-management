@@ -4,7 +4,6 @@ import configs.DatabaseExecutionContext;
 import daos.StudentDao;
 import models.students.Student;
 import play.api.db.Database;
-
 import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

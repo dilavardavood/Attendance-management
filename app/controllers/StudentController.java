@@ -23,12 +23,6 @@ public class StudentController extends Controller {
         return ok(Json.toJson(students));
     }
 
-//    public Result getStudentById(Http.Request request){
-//        JsonNode json = request.body().asJson();
-//        System.out.println(Json.fromJson(json, Student.class).getRollNo());
-//        Student student = studentService.getStudentById(Json.fromJson(json, Student.class));
-//        return ok(Json.toJson(student));
-//    }
     public Result getStudentById(Http.Request request) {
         JsonNode json = request.body().asJson();
 
