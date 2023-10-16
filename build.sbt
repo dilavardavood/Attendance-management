@@ -7,7 +7,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
 scalaVersion := "2.13.12"
 
-libraryDependencies += guice
 
 libraryDependencies ++= Seq(
   guice,
@@ -22,3 +21,4 @@ resolvers ++= Seq(
   "Secured Central Repository" at "https://repo1.maven.org/maven2",
   "Typesafe Repo" at "https://repo.typesafe.com/typesafe/releases/"
 )
+libraryDependencies += filters

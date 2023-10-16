@@ -17,8 +17,12 @@ class Routes(
   StudentController_0: controllers.StudentController,
   // @LINE:8
   AttendanceController_1: controllers.AttendanceController,
-  // @LINE:14
-  Assets_2: controllers.Assets,
+  // @LINE:10
+  TeacherController_2: controllers.TeacherController,
+  // @LINE:11
+  UserController_3: controllers.UserController,
+  // @LINE:19
+  Assets_4: controllers.Assets,
   val prefix: String
 ) extends GeneratedRouter {
 
@@ -28,14 +32,18 @@ class Routes(
     StudentController_0: controllers.StudentController,
     // @LINE:8
     AttendanceController_1: controllers.AttendanceController,
-    // @LINE:14
-    Assets_2: controllers.Assets
-  ) = this(errorHandler, StudentController_0, AttendanceController_1, Assets_2, "/")
+    // @LINE:10
+    TeacherController_2: controllers.TeacherController,
+    // @LINE:11
+    UserController_3: controllers.UserController,
+    // @LINE:19
+    Assets_4: controllers.Assets
+  ) = this(errorHandler, StudentController_0, AttendanceController_1, TeacherController_2, UserController_3, Assets_4, "/")
 
   def withPrefix(addPrefix: String): Routes = {
     val prefix = play.api.routing.Router.concatPrefix(addPrefix, this.prefix)
     router.RoutesPrefix.setPrefix(prefix)
-    new Routes(errorHandler, StudentController_0, AttendanceController_1, Assets_2, prefix)
+    new Routes(errorHandler, StudentController_0, AttendanceController_1, TeacherController_2, UserController_3, Assets_4, prefix)
   }
 
   private[this] val defaultPrefix: String = {
@@ -47,6 +55,11 @@ class Routes(
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getStudentById""", """controllers.StudentController.getStudentById(request:Request)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """addAttendance""", """controllers.AttendanceController.addAttendance(request:Request)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """addBulkAttendance""", """controllers.AttendanceController.addBulkAttendance(request:Request)"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """addTeacher""", """controllers.TeacherController.addTeacher(request:Request)"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """authenticateUser""", """controllers.UserController.authenticateUser(request:Request)"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """registerUser""", """controllers.UserController.registerUser(request:Request)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getTeacherById/""" + "$" + """teacherId<[^/]+>""", """controllers.TeacherController.getTeacherById(teacherId:Int)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAllTeachers""", """controllers.TeacherController.getAllTeachers()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAttendanceByRollNo""", """controllers.AttendanceController.getAttendanceByRollNo(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAllStudents""", """controllers.StudentController.getAllStudents(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
@@ -138,10 +151,106 @@ class Routes(
   )
 
   // @LINE:10
-  private[this] lazy val controllers_AttendanceController_getAttendanceByRollNo4_route = Route("GET",
+  private[this] lazy val controllers_TeacherController_addTeacher4_route = Route("POST",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("addTeacher")))
+  )
+  private[this] lazy val controllers_TeacherController_addTeacher4_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      TeacherController_2.addTeacher(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.TeacherController",
+      "addTeacher",
+      Seq(classOf[play.mvc.Http.Request]),
+      "POST",
+      this.prefix + """addTeacher""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:11
+  private[this] lazy val controllers_UserController_authenticateUser5_route = Route("POST",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("authenticateUser")))
+  )
+  private[this] lazy val controllers_UserController_authenticateUser5_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      UserController_3.authenticateUser(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.UserController",
+      "authenticateUser",
+      Seq(classOf[play.mvc.Http.Request]),
+      "POST",
+      this.prefix + """authenticateUser""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:12
+  private[this] lazy val controllers_UserController_registerUser6_route = Route("POST",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("registerUser")))
+  )
+  private[this] lazy val controllers_UserController_registerUser6_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      UserController_3.registerUser(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.UserController",
+      "registerUser",
+      Seq(classOf[play.mvc.Http.Request]),
+      "POST",
+      this.prefix + """registerUser""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:13
+  private[this] lazy val controllers_TeacherController_getTeacherById7_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getTeacherById/"), DynamicPart("teacherId", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_TeacherController_getTeacherById7_invoker = createInvoker(
+    TeacherController_2.getTeacherById(fakeValue[Int]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.TeacherController",
+      "getTeacherById",
+      Seq(classOf[Int]),
+      "GET",
+      this.prefix + """getTeacherById/""" + "$" + """teacherId<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:14
+  private[this] lazy val controllers_TeacherController_getAllTeachers8_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAllTeachers")))
+  )
+  private[this] lazy val controllers_TeacherController_getAllTeachers8_invoker = createInvoker(
+    TeacherController_2.getAllTeachers(),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.TeacherController",
+      "getAllTeachers",
+      Nil,
+      "GET",
+      this.prefix + """getAllTeachers""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:15
+  private[this] lazy val controllers_AttendanceController_getAttendanceByRollNo9_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAttendanceByRollNo")))
   )
-  private[this] lazy val controllers_AttendanceController_getAttendanceByRollNo4_invoker = createInvoker(
+  private[this] lazy val controllers_AttendanceController_getAttendanceByRollNo9_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       AttendanceController_1.getAttendanceByRollNo(fakeValue[play.mvc.Http.Request]),
@@ -157,11 +266,11 @@ class Routes(
     )
   )
 
-  // @LINE:11
-  private[this] lazy val controllers_StudentController_getAllStudents5_route = Route("GET",
+  // @LINE:16
+  private[this] lazy val controllers_StudentController_getAllStudents10_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAllStudents")))
   )
-  private[this] lazy val controllers_StudentController_getAllStudents5_invoker = createInvoker(
+  private[this] lazy val controllers_StudentController_getAllStudents10_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       StudentController_0.getAllStudents(fakeValue[play.mvc.Http.Request]),
@@ -177,12 +286,12 @@ class Routes(
     )
   )
 
-  // @LINE:14
-  private[this] lazy val controllers_Assets_versioned6_route = Route("GET",
+  // @LINE:19
+  private[this] lazy val controllers_Assets_versioned11_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("assets/"), DynamicPart("file", """.+""",false)))
   )
-  private[this] lazy val controllers_Assets_versioned6_invoker = createInvoker(
-    Assets_2.versioned(fakeValue[String], fakeValue[Asset]),
+  private[this] lazy val controllers_Assets_versioned11_invoker = createInvoker(
+    Assets_4.versioned(fakeValue[String], fakeValue[Asset]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.Assets",
@@ -227,23 +336,56 @@ class Routes(
       }
   
     // @LINE:10
-    case controllers_AttendanceController_getAttendanceByRollNo4_route(params@_) =>
+    case controllers_TeacherController_addTeacher4_route(params@_) =>
       call { 
-        controllers_AttendanceController_getAttendanceByRollNo4_invoker.call(
-          req => AttendanceController_1.getAttendanceByRollNo(req))
+        controllers_TeacherController_addTeacher4_invoker.call(
+          req => TeacherController_2.addTeacher(req))
       }
   
     // @LINE:11
-    case controllers_StudentController_getAllStudents5_route(params@_) =>
+    case controllers_UserController_authenticateUser5_route(params@_) =>
       call { 
-        controllers_StudentController_getAllStudents5_invoker.call(
-          req => StudentController_0.getAllStudents(req))
+        controllers_UserController_authenticateUser5_invoker.call(
+          req => UserController_3.authenticateUser(req))
+      }
+  
+    // @LINE:12
+    case controllers_UserController_registerUser6_route(params@_) =>
+      call { 
+        controllers_UserController_registerUser6_invoker.call(
+          req => UserController_3.registerUser(req))
+      }
+  
+    // @LINE:13
+    case controllers_TeacherController_getTeacherById7_route(params@_) =>
+      call(params.fromPath[Int]("teacherId", None)) { (teacherId) =>
+        controllers_TeacherController_getTeacherById7_invoker.call(TeacherController_2.getTeacherById(teacherId))
       }
   
     // @LINE:14
-    case controllers_Assets_versioned6_route(params@_) =>
+    case controllers_TeacherController_getAllTeachers8_route(params@_) =>
+      call { 
+        controllers_TeacherController_getAllTeachers8_invoker.call(TeacherController_2.getAllTeachers())
+      }
+  
+    // @LINE:15
+    case controllers_AttendanceController_getAttendanceByRollNo9_route(params@_) =>
+      call { 
+        controllers_AttendanceController_getAttendanceByRollNo9_invoker.call(
+          req => AttendanceController_1.getAttendanceByRollNo(req))
+      }
+  
+    // @LINE:16
+    case controllers_StudentController_getAllStudents10_route(params@_) =>
+      call { 
+        controllers_StudentController_getAllStudents10_invoker.call(
+          req => StudentController_0.getAllStudents(req))
+      }
+  
+    // @LINE:19
+    case controllers_Assets_versioned11_route(params@_) =>
       call(Param[String]("path", Right("/public")), params.fromPath[Asset]("file", None)) { (path, file) =>
-        controllers_Assets_versioned6_invoker.call(Assets_2.versioned(path, file))
+        controllers_Assets_versioned11_invoker.call(Assets_4.versioned(path, file))
       }
   }
 }

@@ -10,6 +10,26 @@ import _root_.play.libs.F
 // @LINE:6
 package controllers.javascript {
 
+  // @LINE:19
+  class ReverseAssets(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:19
+    def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Assets.versioned",
+      """
+        function(file1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "assets/" + (""" + implicitly[play.api.mvc.PathBindable[Asset]].javascriptUnbind + """)("file", file1)})
+        }
+      """
+    )
+  
+  }
+
   // @LINE:6
   class ReverseStudentController(_prefix: => String) {
 
@@ -38,7 +58,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:11
+    // @LINE:16
     def getAllStudents: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.StudentController.getAllStudents",
       """
@@ -78,7 +98,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:10
+    // @LINE:15
     def getAttendanceByRollNo: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.AttendanceController.getAttendanceByRollNo",
       """
@@ -90,20 +110,70 @@ package controllers.javascript {
   
   }
 
-  // @LINE:14
-  class ReverseAssets(_prefix: => String) {
+  // @LINE:10
+  class ReverseTeacherController(_prefix: => String) {
 
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:14
-    def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.Assets.versioned",
+    // @LINE:10
+    def addTeacher: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.TeacherController.addTeacher",
       """
-        function(file1) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "assets/" + (""" + implicitly[play.api.mvc.PathBindable[Asset]].javascriptUnbind + """)("file", file1)})
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "addTeacher"})
+        }
+      """
+    )
+  
+    // @LINE:13
+    def getTeacherById: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.TeacherController.getTeacherById",
+      """
+        function(teacherId0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "getTeacherById/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[Int]].javascriptUnbind + """)("teacherId", teacherId0))})
+        }
+      """
+    )
+  
+    // @LINE:14
+    def getAllTeachers: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.TeacherController.getAllTeachers",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "getAllTeachers"})
+        }
+      """
+    )
+  
+  }
+
+  // @LINE:11
+  class ReverseUserController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:11
+    def authenticateUser: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.UserController.authenticateUser",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "authenticateUser"})
+        }
+      """
+    )
+  
+    // @LINE:12
+    def registerUser: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.UserController.registerUser",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "registerUser"})
         }
       """
     )

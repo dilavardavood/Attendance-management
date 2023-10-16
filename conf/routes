@@ -7,6 +7,11 @@ POST     /addStudent                controllers.StudentController.addStudent(req
 POST     /getStudentById            controllers.StudentController.getStudentById(request:Request)
 POST     /addAttendance             controllers.AttendanceController.addAttendance(request: Request)
 POST     /addBulkAttendance         controllers.AttendanceController.addBulkAttendance(request: Request)
+POST     /addTeacher                controllers.TeacherController.addTeacher(request: Request)
+POST    /authenticateUser      controllers.UserController.authenticateUser(request: Request)
+POST    /registerUser           controllers.UserController.registerUser(request: Request)
+GET      /getTeacherById/:teacherId controllers.TeacherController.getTeacherById(teacherId: Int)
+GET      /getAllTeachers            controllers.TeacherController.getAllTeachers()
 GET      /getAttendanceByRollNo     controllers.AttendanceController.getAttendanceByRollNo(request: Request)
 GET      /getAllStudents            controllers.StudentController.getAllStudents(request:Request)
 
