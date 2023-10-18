@@ -1,8 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0m/home/stark/Documents/attendance/app/filters/CorsFilter.java:11:1: no suitable constructor found for CORSFilter(no arguments)[0m
-[0m[[0m[31merror[0m] [0m[0m    constructor play.filters.cors.CORSFilter.CORSFilter(play.filters.cors.CORSConfig,play.api.http.HttpErrorHandler,scala.collection.immutable.Seq<java.lang.String>) is not applicable[0m
-[0m[[0m[31merror[0m] [0m[0m      (actual and formal argument lists differ in length)[0m
-[0m[[0m[31merror[0m] [0m[0m    constructor play.filters.cors.CORSFilter.CORSFilter(play.filters.cors.CORSConfig,play.http.HttpErrorHandler,java.util.List<java.lang.String>) is not applicable[0m
-[0m[[0m[31merror[0m] [0m[0m      (actual and formal argument lists differ in length)[0m
-[0m[[0m[31merror[0m] [0m[0m    constructor play.filters.cors.CORSFilter.CORSFilter(play.filters.cors.CORSConfig,play.http.HttpErrorHandler,java.util.List<java.lang.String>,play.core.j.JavaContextComponents) is not applicable[0m
-[0m[[0m[31merror[0m] [0m[0m      (actual and formal argument lists differ in length)[0m
-[0m[[0m[31merror[0m] [0m[0msuper[0m

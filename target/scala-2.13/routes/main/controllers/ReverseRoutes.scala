@@ -10,14 +10,14 @@ import _root_.play.libs.F
 // @LINE:6
 package controllers {
 
-  // @LINE:19
+  // @LINE:26
   class ReverseAssets(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:19
+    // @LINE:26
     def versioned(file:Asset): Call = {
       implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map(("path", "/public"))); _rrc
       Call("GET", _prefix + { _defaultPrefix } + "assets/" + implicitly[play.api.mvc.PathBindable[Asset]].unbind("file", file))
@@ -44,7 +44,7 @@ package controllers {
       Call("POST", _prefix + { _defaultPrefix } + "getStudentById")
     }
   
-    // @LINE:16
+    // @LINE:17
     def getAllStudents(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "getAllStudents")
@@ -59,22 +59,40 @@ package controllers {
     }
 
   
-    // @LINE:8
-    def addAttendance(): Call = {
-      
-      Call("POST", _prefix + { _defaultPrefix } + "addAttendance")
-    }
-  
     // @LINE:9
     def addBulkAttendance(): Call = {
       
       Call("POST", _prefix + { _defaultPrefix } + "addBulkAttendance")
     }
   
-    // @LINE:15
+    // @LINE:13
+    def getAttendanceCountByStatus(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "getAttendanceCountByStatus")
+    }
+  
+    // @LINE:18
+    def getAllAttendance(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "getAllAttendance")
+    }
+  
+    // @LINE:19
+    def getAttendanceByFilter(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "getAttendanceByFilter")
+    }
+  
+    // @LINE:16
     def getAttendanceByRollNo(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "getAttendanceByRollNo")
+    }
+  
+    // @LINE:8
+    def addAttendance(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "addAttendance")
     }
   
   }
@@ -92,13 +110,13 @@ package controllers {
       Call("POST", _prefix + { _defaultPrefix } + "addTeacher")
     }
   
-    // @LINE:13
+    // @LINE:14
     def getTeacherById(teacherId:Int): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "getTeacherById/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[Int]].unbind("teacherId", teacherId)))
     }
   
-    // @LINE:14
+    // @LINE:15
     def getAllTeachers(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "getAllTeachers")

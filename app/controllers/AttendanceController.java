@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import models.attendance.Attendance;
+import models.specialModels.StatusCount;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -11,6 +12,7 @@ import services.AttendanceService;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class AttendanceController extends Controller {
     private final AttendanceService attendanceService;
@@ -67,6 +69,34 @@ public class AttendanceController extends Controller {
             return ok(Json.toJson(attendanceList));
         } else {
             return notFound("No attendance records found for the provided roll number");
+        }
+    }
+
+
+    public Result getAttendanceCountByStatus(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        Attendance attendance = Json.fromJson(json, Attendance.class);
+        StatusCount statusCount = attendanceService.getAttendanceCountByStatus(attendance);
+        return ok(Json.toJson(statusCount));
+    }
+    public Result getAttendanceByFilter(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        Attendance attendance = Json.fromJson(json,Attendance.class);
+        List<Attendance> attendanceList = attendanceService.getAttendanceByFilter(attendance);
+
+        if (!attendanceList.isEmpty()) {
+            return ok(Json.toJson(attendanceList));
+        } else {
+            return notFound("No attendance records found");
+        }
+    }
+    public Result getAllAttendance() {
+        List<Attendance> attendanceList = attendanceService.getAllAttendance();
+
+        if (!attendanceList.isEmpty()) {
+            return ok(Json.toJson(attendanceList));
+        } else {
+            return notFound("No attendance records found");
         }
     }
 }

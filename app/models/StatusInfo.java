@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class StatusInfo {
-    String statusCode;
-    String statusMessage;
-    String errorMessage;
+    private String statusCode;
+    private String statusMessage;
 }

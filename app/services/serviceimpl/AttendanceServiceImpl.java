@@ -2,6 +2,7 @@ package services.serviceimpl;
 
 import daos.AttendanceDao;
 import models.attendance.Attendance;
+import models.specialModels.StatusCount;
 import services.AttendanceService;
 
 import javax.inject.Inject;
@@ -28,5 +29,18 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public List<Attendance> getAttendanceByRollNo(Attendance attendance) {
         return attendanceDao.getAttendanceByRollNo(attendance);
+    }
+    @Override
+    public List<Attendance> getAttendanceByFilter(Attendance attendance) {
+        return attendanceDao.getAttendanceByFilter(attendance);
+    }
+
+    @Override
+    public List<Attendance> getAllAttendance() {
+        return attendanceDao.getAllAttendance();
+    }
+    @Override
+    public StatusCount getAttendanceCountByStatus(Attendance attendance) {
+        return attendanceDao.getAttendanceCountByStatus(attendance);
     }
 }

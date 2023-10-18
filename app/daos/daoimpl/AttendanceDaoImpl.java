@@ -2,7 +2,9 @@ package daos.daoimpl;
 
 import daos.AttendanceDao;
 import models.attendance.Attendance;
+import models.specialModels.StatusCount;
 import play.api.db.Database;
+
 import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -79,4 +81,153 @@ public class AttendanceDaoImpl implements AttendanceDao {
 
         return attendanceList;
     }
+
+    @Override
+    public List<Attendance> getAllAttendance() {
+        List<Attendance> attendanceList = new ArrayList<>();
+
+        try (Connection connection = db.getConnection()) {
+            String query = "SELECT * FROM attendance";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Attendance attendance = new Attendance();
+                attendance.setAttendanceId(resultSet.getInt("attendance_id"));
+                attendance.setRollNo(resultSet.getInt("roll_no"));
+                attendance.setDate(resultSet.getString("date"));
+                attendance.setStatus(resultSet.getString("status"));
+
+                attendanceList.add(attendance);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return attendanceList;
+    }
+    @Override
+    public List<Attendance> getAttendanceByFilter(Attendance attendance) {
+        List<Attendance> attendanceList = new ArrayList<>();
+
+        try (Connection connection = db.getConnection()) {
+            String query = "SELECT * FROM attendance WHERE";
+            boolean conditionsAdded = false;
+
+            if (attendance.getRollNo() > 0) {
+                query += " roll_no = ?";
+                conditionsAdded = true;
+            }
+
+            if (attendance.getDate() != null && !attendance.getDate().isEmpty()) {
+                if (conditionsAdded) {
+                    query += " AND";
+                }
+                query += " date = ?";
+                conditionsAdded = true;
+            }
+
+            if (attendance.getStatus() != null && !attendance.getStatus().isEmpty()) {
+                if (conditionsAdded) {
+                    query += " AND";
+                }
+                query += " status = ?";
+            }
+
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            int parameterIndex = 1;
+            if (attendance.getRollNo() > 0) {
+                statement.setInt(parameterIndex++, attendance.getRollNo());
+            }
+
+            if (attendance.getDate() != null && !attendance.getDate().isEmpty()) {
+                statement.setString(parameterIndex++, attendance.getDate());
+            }
+
+            if (attendance.getStatus() != null && !attendance.getStatus().isEmpty()) {
+                statement.setString(parameterIndex, attendance.getStatus());
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Attendance resultAttendance = new Attendance();
+                resultAttendance.setAttendanceId(resultSet.getInt("attendance_id"));
+                resultAttendance.setRollNo(resultSet.getInt("roll_no"));
+                resultAttendance.setDate(resultSet.getString("date"));
+                resultAttendance.setStatus(resultSet.getString("status"));
+
+                attendanceList.add(resultAttendance);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return attendanceList;
+    }
+
+
+
+    @Override
+    public StatusCount getAttendanceCountByStatus(Attendance attendance) {
+        StatusCount statusCount = new StatusCount();
+
+        try (Connection connection = db.getConnection()) {
+            String query = "SELECT status, COUNT(*) as count FROM attendance WHERE";
+            boolean conditionsAdded = false;
+
+            if (attendance.getDate() != null && !attendance.getDate().isEmpty()) {
+                query += " date = ?";
+                conditionsAdded = true;
+            }
+
+            if (attendance.getRollNo() > 0) {
+                if (conditionsAdded) {
+                    query += " AND";
+                }
+                query += " roll_no = ?";
+            }
+
+            query += " GROUP BY status";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            int parameterIndex = 1;
+            if (attendance.getDate() != null && !attendance.getDate().isEmpty()) {
+                statement.setString(parameterIndex++, attendance.getDate());
+            }
+
+            if (attendance.getRollNo() > 0) {
+                statement.setInt(parameterIndex, attendance.getRollNo());
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String status = resultSet.getString("status");
+                int count = resultSet.getInt("count");
+
+                switch (status) {
+                    case "present":
+                        statusCount.setPresent(count);
+                        break;
+                    case "absent":
+                        statusCount.setAbsent(count);
+                        break;
+                    case "late":
+                        statusCount.setLate(count);
+                        break;
+                    default:
+                        // Handle unknown status
+                        break;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return statusCount;
+    }
+
 }
