@@ -3,6 +3,7 @@ package daos.daoimpl;
 import daos.AttendanceDao;
 import models.attendance.Attendance;
 import models.specialModels.StatusCount;
+import models.specialModels.StatusCountWithClass;
 import play.api.db.Database;
 
 import javax.inject.Inject;
@@ -228,6 +229,43 @@ public class AttendanceDaoImpl implements AttendanceDao {
         }
 
         return statusCount;
+    }
+    @Override
+    public List<StatusCountWithClass> getStatusCountByDateRange(String startDate, String endDate) {
+        List<StatusCountWithClass> result = new ArrayList<>();
+
+        try (Connection connection = db.getConnection()) {
+            String query = "SELECT s.class, " +
+                    "SUM(CASE WHEN a.status = 'present' THEN 1 ELSE 0 END) as present, " +
+                    "SUM(CASE WHEN a.status = 'absent' THEN 1 ELSE 0 END) as absent, " +
+                    "SUM(CASE WHEN a.status = 'late' THEN 1 ELSE 0 END) as late " +
+                    "FROM students s " +
+                    "JOIN attendance a ON s.roll_no = a.roll_no " +
+                    "WHERE a.date BETWEEN ? AND ? " +
+                    "GROUP BY s.class";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, startDate);
+            statement.setString(2, endDate);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                StatusCountWithClass statusCountWithClass = new StatusCountWithClass();
+                statusCountWithClass.setClassName(resultSet.getString("class"));
+
+                StatusCount statusCount = new StatusCount();
+                statusCount.setPresent(resultSet.getInt("present"));
+                statusCount.setAbsent(resultSet.getInt("absent"));
+                statusCount.setLate(resultSet.getInt("late"));
+
+                statusCountWithClass.setStatusCount(statusCount);
+                result.add(statusCountWithClass);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }

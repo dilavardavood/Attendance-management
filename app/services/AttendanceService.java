@@ -3,6 +3,7 @@ package services;
 import com.google.inject.ImplementedBy;
 import models.attendance.Attendance;
 import models.specialModels.StatusCount;
+import models.specialModels.StatusCountWithClass;
 import services.serviceimpl.AttendanceServiceImpl;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface AttendanceService {
 
     StatusCount getAttendanceCountByStatus(Attendance attendance);
     List<Attendance> getAllAttendance();
+    List<StatusCountWithClass> getStatusCountByDateRange(String startDate, String endDate);
 }

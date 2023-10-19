@@ -1,11 +1,15 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.students.Student;
 import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.*;
+import play.mvc.Http;
+import play.mvc.Result;
 import services.StudentService;
+
 import javax.inject.Inject;
 import java.util.List;
 public class StudentController extends Controller {
@@ -62,5 +66,14 @@ public class StudentController extends Controller {
             return internalServerError("Error adding student: " + e.getMessage());
         }
     }
+    public Result getAllClassNames() {
+        List<String> classNames = studentService.getAllClassNames();
+        ObjectNode responseJson = Json.newObject();
+        ArrayNode classArray = responseJson.putArray("classes");
 
+        for (String className : classNames) {
+            classArray.add(className);
+        }
+        return ok(responseJson);
+    }
 }

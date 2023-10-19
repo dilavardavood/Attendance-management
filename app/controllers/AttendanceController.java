@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.attendance.Attendance;
 import models.specialModels.StatusCount;
+import models.specialModels.StatusCountWithClass;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -98,5 +99,13 @@ public class AttendanceController extends Controller {
         } else {
             return notFound("No attendance records found");
         }
+    }
+    public Result getStatusCountByDateRange(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        String startDate = json.get("startDate").asText();
+        String endDate = json.get("endDate").asText();
+
+        List<StatusCountWithClass> statusCountList = attendanceService.getStatusCountByDateRange(startDate, endDate);
+        return ok(Json.toJson(statusCountList));
     }
 }

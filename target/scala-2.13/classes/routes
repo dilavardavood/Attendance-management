@@ -11,6 +11,8 @@ POST     /addTeacher                controllers.TeacherController.addTeacher(req
 POST    /authenticateUser      controllers.UserController.authenticateUser(request: Request)
 POST    /registerUser           controllers.UserController.registerUser(request: Request)
 POST    /getAttendanceCountByStatus   controllers.AttendanceController.getAttendanceCountByStatus(request: Request)
+POST  /getStatusCountByDateRange   controllers.AttendanceController.getStatusCountByDateRange(request: Request)
+GET     /getAllClassNames           controllers.StudentController.getAllClassNames()
 GET      /getTeacherById/:teacherId controllers.TeacherController.getTeacherById(teacherId: Int)
 GET      /getAllTeachers            controllers.TeacherController.getAllTeachers()
 GET      /getAttendanceByRollNo     controllers.AttendanceController.getAttendanceByRollNo(request: Request)

@@ -4,6 +4,7 @@ import com.google.inject.ImplementedBy;
 import daos.daoimpl.AttendanceDaoImpl;
 import models.attendance.Attendance;
 import models.specialModels.StatusCount;
+import models.specialModels.StatusCountWithClass;
 
 import java.util.List;
 
@@ -15,5 +16,6 @@ public interface AttendanceDao {
     List<Attendance> getAttendanceByRollNo(Attendance attendance);
     List<Attendance> getAttendanceByFilter(Attendance attendance);
     StatusCount getAttendanceCountByStatus(Attendance attendance);
+    List<StatusCountWithClass> getStatusCountByDateRange(String startDate, String endDate);
 
 }

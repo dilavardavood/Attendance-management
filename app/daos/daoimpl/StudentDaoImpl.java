@@ -121,4 +121,22 @@ public class StudentDaoImpl implements StudentDao {
             e.printStackTrace();
         }
     }
+    @Override
+    public List<String> getAllClassNames() {
+        List<String> classNames = new ArrayList<>();
+
+        try (Connection connection = db.getConnection()) {
+            String query = "SELECT DISTINCT class FROM students";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                classNames.add(resultSet.getString("class"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return classNames;
+    }
 }

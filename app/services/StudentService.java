@@ -12,4 +12,6 @@ public interface StudentService {
     List<Student> getAllStudents();
     Student getStudentById(Student student);
     void addStudent(Student student);
+    List<String> getAllClassNames();
+
 }

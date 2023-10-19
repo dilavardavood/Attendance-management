@@ -10,7 +10,7 @@ import _root_.play.libs.F
 // @LINE:6
 package controllers.javascript {
 
-  // @LINE:26
+  // @LINE:28
   class ReverseAssets(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -18,7 +18,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:26
+    // @LINE:28
     def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Assets.versioned",
       """
@@ -58,7 +58,17 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:17
+    // @LINE:15
+    def getAllClassNames: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.StudentController.getAllClassNames",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "getAllClassNames"})
+        }
+      """
+    )
+  
+    // @LINE:19
     def getAllStudents: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.StudentController.getAllStudents",
       """
@@ -98,7 +108,17 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:18
+    // @LINE:14
+    def getStatusCountByDateRange: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.AttendanceController.getStatusCountByDateRange",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "getStatusCountByDateRange"})
+        }
+      """
+    )
+  
+    // @LINE:20
     def getAllAttendance: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.AttendanceController.getAllAttendance",
       """
@@ -108,7 +128,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:19
+    // @LINE:21
     def getAttendanceByFilter: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.AttendanceController.getAttendanceByFilter",
       """
@@ -118,7 +138,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:16
+    // @LINE:18
     def getAttendanceByRollNo: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.AttendanceController.getAttendanceByRollNo",
       """
@@ -158,7 +178,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:14
+    // @LINE:16
     def getTeacherById: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.TeacherController.getTeacherById",
       """
@@ -168,7 +188,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:15
+    // @LINE:17
     def getAllTeachers: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.TeacherController.getAllTeachers",
       """
