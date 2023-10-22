@@ -23,7 +23,8 @@ public class StudentController extends Controller {
     public Result getAllStudents(Http.Request request) {
         JsonNode json = request.body().asJson();
         System.out.println(json);
-        List<Student> students = studentService.getAllStudents();
+        Student student = Json.fromJson(json, Student.class);
+        List<Student> students = studentService.getAllStudents(student);
         return ok(Json.toJson(students));
     }
 

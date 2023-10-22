@@ -7,6 +7,15 @@ public class Attendance {
     private String date;
     private String status;
 
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    private String className;
     public int getAttendanceId() {
         return attendanceId;
     }

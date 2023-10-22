@@ -9,8 +9,9 @@ import java.util.List;
 
 @ImplementedBy(StudentDaoImpl.class)
 public interface StudentDao {
-    List<Student> getAllStudents();
+    List<Student> getAllStudents(Student student);
     Student getStudentById(Student student);
     void addStudent(Student student);
     List<String> getAllClassNames();
+
 }

@@ -2,6 +2,8 @@ package daos.daoimpl;
 
 import daos.AttendanceDao;
 import models.attendance.Attendance;
+import models.specialModels.AttendanceDetail;
+import models.specialModels.AttendanceRecord;
 import models.specialModels.StatusCount;
 import models.specialModels.StatusCountWithClass;
 import play.api.db.Database;
@@ -25,12 +27,12 @@ public class AttendanceDaoImpl implements AttendanceDao {
     @Override
     public void addAttendance(Attendance attendance) {
         try (Connection connection = db.getConnection()) {
-            String query = "INSERT INTO attendance (attendance_id, roll_no, date, status) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO attendance (roll_no, date, status,class) VALUES (?, ?, ?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, attendance.getAttendanceId());
-            statement.setInt(2, attendance.getRollNo());
-            statement.setString(3, attendance.getDate());
-            statement.setString(4, attendance.getStatus());
+            statement.setInt(1, attendance.getRollNo());
+            statement.setString(2, attendance.getDate());
+            statement.setString(3, attendance.getStatus());
+            statement.setString(4,attendance.getClassName());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -40,14 +42,14 @@ public class AttendanceDaoImpl implements AttendanceDao {
     @Override
     public void addBulkAttendance(List<Attendance> attendanceList) {
         try (Connection connection = db.getConnection()) {
-            String query = "INSERT INTO attendance (attendance_id, roll_no, date, status) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO attendance (roll_no, date, status,class) VALUES (?, ?, ?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
 
             for (Attendance attendance : attendanceList) {
-                statement.setInt(1, attendance.getAttendanceId());
-                statement.setInt(2, attendance.getRollNo());
-                statement.setString(3, attendance.getDate());
-                statement.setString(4, attendance.getStatus());
+                statement.setInt(1, attendance.getRollNo());
+                statement.setString(2, attendance.getDate());
+                statement.setString(3, attendance.getStatus());
+                statement.setString(4,attendance.getClassName());
                 statement.addBatch();
             }
 
@@ -62,9 +64,10 @@ public class AttendanceDaoImpl implements AttendanceDao {
         List<Attendance> attendanceList = new ArrayList<>();
 
         try (Connection connection = db.getConnection()) {
-            String query = "SELECT * FROM attendance WHERE roll_no = ?";
+            String query = "SELECT * FROM attendance WHERE roll_no = ? AND class = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, attendance.getRollNo());
+            statement.setString(2,attendance.getClassName());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -73,7 +76,7 @@ public class AttendanceDaoImpl implements AttendanceDao {
                 attendance1.setRollNo(resultSet.getInt("roll_no"));
                 attendance1.setDate(resultSet.getString("date"));
                 attendance1.setStatus(resultSet.getString("status"));
-
+                attendance1.setClassName(resultSet.getString("class"));
                 attendanceList.add(attendance1);
             }
         } catch (SQLException e) {
@@ -84,22 +87,24 @@ public class AttendanceDaoImpl implements AttendanceDao {
     }
 
     @Override
-    public List<Attendance> getAllAttendance() {
+    public List<Attendance> getAllAttendance(Attendance attendance) {
         List<Attendance> attendanceList = new ArrayList<>();
 
         try (Connection connection = db.getConnection()) {
-            String query = "SELECT * FROM attendance";
+            String query = "SELECT * FROM attendance WHERE class = ?";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1,attendance.getClassName());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Attendance attendance = new Attendance();
-                attendance.setAttendanceId(resultSet.getInt("attendance_id"));
-                attendance.setRollNo(resultSet.getInt("roll_no"));
-                attendance.setDate(resultSet.getString("date"));
-                attendance.setStatus(resultSet.getString("status"));
+                Attendance attendance1 = new Attendance();
+                attendance1.setAttendanceId(resultSet.getInt("attendance_id"));
+                attendance1.setRollNo(resultSet.getInt("roll_no"));
+                attendance1.setDate(resultSet.getString("date"));
+                attendance1.setStatus(resultSet.getString("status"));
+                attendance1.setClassName(resultSet.getString("class"));
 
-                attendanceList.add(attendance);
+                attendanceList.add(attendance1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,11 +133,11 @@ public class AttendanceDaoImpl implements AttendanceDao {
                 conditionsAdded = true;
             }
 
-            if (attendance.getStatus() != null && !attendance.getStatus().isEmpty()) {
+            if (attendance.getClassName() != null && !attendance.getClassName().isEmpty()) {
                 if (conditionsAdded) {
                     query += " AND";
                 }
-                query += " status = ?";
+                query += " class = ?";
             }
 
             PreparedStatement statement = connection.prepareStatement(query);
@@ -146,8 +151,8 @@ public class AttendanceDaoImpl implements AttendanceDao {
                 statement.setString(parameterIndex++, attendance.getDate());
             }
 
-            if (attendance.getStatus() != null && !attendance.getStatus().isEmpty()) {
-                statement.setString(parameterIndex, attendance.getStatus());
+            if (attendance.getClassName() != null && !attendance.getClassName().isEmpty()) {
+                statement.setString(parameterIndex, attendance.getClassName());
             }
 
             ResultSet resultSet = statement.executeQuery();
@@ -158,7 +163,7 @@ public class AttendanceDaoImpl implements AttendanceDao {
                 resultAttendance.setRollNo(resultSet.getInt("roll_no"));
                 resultAttendance.setDate(resultSet.getString("date"));
                 resultAttendance.setStatus(resultSet.getString("status"));
-
+                resultAttendance.setClassName(resultSet.getString("class"));
                 attendanceList.add(resultAttendance);
             }
         } catch (SQLException e) {
@@ -175,7 +180,7 @@ public class AttendanceDaoImpl implements AttendanceDao {
         StatusCount statusCount = new StatusCount();
 
         try (Connection connection = db.getConnection()) {
-            String query = "SELECT status, COUNT(*) as count FROM attendance WHERE";
+            String query = "SELECT status, COUNT(*) as count FROM attendance WHERE class = ? AND";
             boolean conditionsAdded = false;
 
             if (attendance.getDate() != null && !attendance.getDate().isEmpty()) {
@@ -192,8 +197,8 @@ public class AttendanceDaoImpl implements AttendanceDao {
 
             query += " GROUP BY status";
             PreparedStatement statement = connection.prepareStatement(query);
-
-            int parameterIndex = 1;
+            statement.setString(1,attendance.getClassName());
+            int parameterIndex = 2;
             if (attendance.getDate() != null && !attendance.getDate().isEmpty()) {
                 statement.setString(parameterIndex++, attendance.getDate());
             }
@@ -252,7 +257,6 @@ public class AttendanceDaoImpl implements AttendanceDao {
             while (resultSet.next()) {
                 StatusCountWithClass statusCountWithClass = new StatusCountWithClass();
                 statusCountWithClass.setClassName(resultSet.getString("class"));
-
                 StatusCount statusCount = new StatusCount();
                 statusCount.setPresent(resultSet.getInt("present"));
                 statusCount.setAbsent(resultSet.getInt("absent"));
@@ -267,5 +271,125 @@ public class AttendanceDaoImpl implements AttendanceDao {
 
         return result;
     }
+
+//    @Override
+//    public List<AttendanceDetail> getAttendanceDetails(String startDate, String endDate, String className) {
+//        List<AttendanceDetail> attendanceDetails = new ArrayList<>();
+//        System.out.println("input >> " + startDate + "  " + endDate + "  " + className);
+//
+//        try (Connection connection = db.getConnection()) {
+//            String query = "SELECT a.roll_no, s.first_name, s.class, a.date, a.status " +
+//                    "FROM attendance a " +
+//                    "JOIN students s ON a.roll_no = s.roll_no " +
+//                    "WHERE s.class = ? " +
+//                    "AND a.date BETWEEN ? AND ?";
+//            PreparedStatement statement = connection.prepareStatement(query);
+//            statement.setString(1, className);
+//            statement.setString(2, startDate);
+//            statement.setString(3, endDate);
+//            System.out.println("Statement " + statement);
+//
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            while (resultSet.next()) {
+//                System.out.println(resultSet);
+//
+//                int rollNo = resultSet.getInt("roll_no");
+//                String firstName = resultSet.getString("first_name");
+//                String classNameResult = resultSet.getString("class");
+//
+//                AttendanceDetail attendanceDetail = null;
+//
+//                for (AttendanceDetail detail : attendanceDetails) {
+//                    if (detail.getRollNo() == rollNo) {
+//                        attendanceDetail = detail;
+//                        break;
+//                    }
+//                }
+//
+//                if (attendanceDetail == null) {
+//                    attendanceDetail = new AttendanceDetail();
+//                    attendanceDetail.setRollNo(rollNo);
+//                    attendanceDetail.setFirstName(firstName);
+//                    attendanceDetail.setClassName(classNameResult);
+//                    attendanceDetail.setAttendance(new ArrayList<>());
+//                    attendanceDetails.add(attendanceDetail);
+//                }
+//
+//                AttendanceRecord attendanceRecord = new AttendanceRecord();
+//                attendanceRecord.setDate(resultSet.getString("date"));
+//                attendanceRecord.setStatus(resultSet.getString("status"));
+//
+//                attendanceDetail.addAttendanceRecord(attendanceRecord);
+//            }
+//
+//            System.out.println(attendanceDetails);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return attendanceDetails;
+//    }
+@Override
+public List<AttendanceDetail> getAttendanceDetails(String startDate, String endDate, String className) {
+    List<AttendanceDetail> attendanceDetails = new ArrayList<>();
+
+    try (Connection connection = db.getConnection()) {
+        // Step 1: Get all students for the specified class
+        String studentQuery = "SELECT * FROM students WHERE class = ?";
+        PreparedStatement studentStatement = connection.prepareStatement(studentQuery);
+        studentStatement.setString(1, className);
+        ResultSet studentResultSet = studentStatement.executeQuery();
+
+        while (studentResultSet.next()) {
+            int rollNo = studentResultSet.getInt("roll_no");
+            String firstName = studentResultSet.getString("first_name");
+            String classNameResult = studentResultSet.getString("class");
+
+            AttendanceDetail attendanceDetail = new AttendanceDetail();
+            attendanceDetail.setRollNo(rollNo);
+            attendanceDetail.setFirstName(firstName);
+            attendanceDetail.setClassName(classNameResult);
+            attendanceDetail.setAttendance(new ArrayList<>());
+
+            attendanceDetails.add(attendanceDetail);
+        }
+
+        // Step 2: Get attendance records for each student within the specified date range
+        String attendanceQuery = "SELECT a.roll_no, a.date, a.status " +
+                "FROM attendance a " +
+                "JOIN students s ON a.roll_no = s.roll_no " +
+                "WHERE s.class = ? " +
+                "AND a.date BETWEEN ? AND ?";
+        PreparedStatement attendanceStatement = connection.prepareStatement(attendanceQuery);
+        attendanceStatement.setString(1, className);
+        attendanceStatement.setString(2, startDate);
+        attendanceStatement.setString(3, endDate);
+        ResultSet attendanceResultSet = attendanceStatement.executeQuery();
+
+        while (attendanceResultSet.next()) {
+            int rollNo = attendanceResultSet.getInt("roll_no");
+            String date = attendanceResultSet.getString("date");
+            String status = attendanceResultSet.getString("status");
+
+            for (AttendanceDetail detail : attendanceDetails) {
+                if (detail.getRollNo() == rollNo) {
+                    AttendanceRecord attendanceRecord = new AttendanceRecord();
+                    attendanceRecord.setDate(date);
+                    attendanceRecord.setStatus(status);
+
+                    detail.addAttendanceRecord(attendanceRecord);
+                    break;
+                }
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return attendanceDetails;
+}
+
 
 }

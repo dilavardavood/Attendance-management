@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import models.attendance.Attendance;
+import models.specialModels.AttendanceDetail;
 import models.specialModels.StatusCount;
 import models.specialModels.StatusCountWithClass;
 import play.libs.Json;
@@ -91,8 +92,10 @@ public class AttendanceController extends Controller {
             return notFound("No attendance records found");
         }
     }
-    public Result getAllAttendance() {
-        List<Attendance> attendanceList = attendanceService.getAllAttendance();
+    public Result getAllAttendance(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        Attendance attendance = Json.fromJson(json,Attendance.class);
+        List<Attendance> attendanceList = attendanceService.getAllAttendance(attendance);
 
         if (!attendanceList.isEmpty()) {
             return ok(Json.toJson(attendanceList));
@@ -107,5 +110,13 @@ public class AttendanceController extends Controller {
 
         List<StatusCountWithClass> statusCountList = attendanceService.getStatusCountByDateRange(startDate, endDate);
         return ok(Json.toJson(statusCountList));
+    }
+    public Result getAttendanceDetails(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        String className = json.get("className").asText();
+        String startDate = json.get("startDate").asText();
+        String endDate = json.get("endDate").asText();
+        List<AttendanceDetail> attendanceDetails = attendanceService.getAttendanceDetails(startDate, endDate, className);
+        return ok(Json.toJson(attendanceDetails));
     }
 }

@@ -2,6 +2,7 @@ package services.serviceimpl;
 
 import daos.AttendanceDao;
 import models.attendance.Attendance;
+import models.specialModels.AttendanceDetail;
 import models.specialModels.StatusCount;
 import models.specialModels.StatusCountWithClass;
 import services.AttendanceService;
@@ -37,8 +38,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public List<Attendance> getAllAttendance() {
-        return attendanceDao.getAllAttendance();
+    public List<Attendance> getAllAttendance(Attendance attendance) {
+        return attendanceDao.getAllAttendance(attendance);
     }
     @Override
     public StatusCount getAttendanceCountByStatus(Attendance attendance) {
@@ -48,4 +49,10 @@ public class AttendanceServiceImpl implements AttendanceService {
     public List<StatusCountWithClass> getStatusCountByDateRange(String startDate, String endDate) {
         return attendanceDao.getStatusCountByDateRange(startDate, endDate);
     }
+    @Override
+    public List<AttendanceDetail> getAttendanceDetails(String startDate, String endDate,String className) {
+        return attendanceDao.getAttendanceDetails(startDate, endDate,className);
+    }
+
+
 }

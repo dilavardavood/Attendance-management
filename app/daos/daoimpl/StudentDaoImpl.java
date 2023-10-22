@@ -4,6 +4,7 @@ import configs.DatabaseExecutionContext;
 import daos.StudentDao;
 import models.students.Student;
 import play.api.db.Database;
+
 import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,30 +24,31 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public List<Student> getAllStudents() {
+    public List<Student> getAllStudents(Student student) {
         List<Student> students = new ArrayList<>();
 
         try (Connection connection = db.getConnection()) {
-            String query = "SELECT * FROM students";
+            String query = "SELECT * FROM students WHERE class = ?";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1,student.getClassName());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Student student = new Student();
-                student.setRollNo(resultSet.getInt("roll_no"));
-                student.setFirstName(resultSet.getString("first_name"));
-                student.setLastName(resultSet.getString("last_name"));
-                student.setEmail(resultSet.getString("email"));
-                student.setDob(resultSet.getString("dob"));
-                student.setImageUrl(resultSet.getString("image_url"));
-                student.setMobileNo(resultSet.getString("mobile_no"));
-                student.setGuardian(resultSet.getString("guardian"));
-                student.setGuardianNumber(resultSet.getString("guardian_number"));
-                student.setClassName(resultSet.getString("class"));
-                student.setUpdatedBy(resultSet.getString("updated_by"));
-                student.setUpdatedOn(resultSet.getString("updated_on"));
-
-                students.add(student);
+                Student student1 = new Student();
+                student1.setRollNo(resultSet.getInt("roll_no"));
+                student1.setFirstName(resultSet.getString("first_name"));
+                student1.setLastName(resultSet.getString("last_name"));
+                student1.setEmail(resultSet.getString("email"));
+                student1.setDob(resultSet.getString("dob"));
+                student1.setImageUrl(resultSet.getString("image_url"));
+                student1.setMobileNo(resultSet.getString("mobile_no"));
+                student1.setGuardian(resultSet.getString("guardian"));
+                student1.setGuardianNumber(resultSet.getString("guardian_number"));
+                student1.setClassName(resultSet.getString("class"));
+                student1.setUpdatedBy(resultSet.getString("updated_by"));
+                student1.setUpdatedOn(resultSet.getString("updated_on"));
+                student1.setGender(resultSet.getString("gender"));
+                students.add(student1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,16 +62,19 @@ public class StudentDaoImpl implements StudentDao {
         try (Connection connection = db.getConnection()) {
             String query;
             if(student.getEmail() != null){
-                query = "SELECT * FROM students WHERE email = ?";
+                query = "SELECT * FROM students WHERE email = ? AND class = ?";
             }
             else{
-                query = "SELECT * FROM students WHERE roll_no = ?";
+                query = "SELECT * FROM students WHERE roll_no = ? AND class = ?";
             }
             PreparedStatement statement = connection.prepareStatement(query);
             if (student.getEmail() != null) {
                 statement.setString(1, student.getEmail());
+                statement.setString(2,student.getClassName());
             } else {
                 statement.setInt(1, student.getRollNo());
+                statement.setString(2,student.getClassName());
+
             }
             ResultSet resultSet = statement.executeQuery();
 
@@ -87,7 +92,7 @@ public class StudentDaoImpl implements StudentDao {
                 retrievedStudent.setClassName(resultSet.getString("class"));
                 retrievedStudent.setUpdatedBy(resultSet.getString("updated_by"));
                 retrievedStudent.setUpdatedOn(resultSet.getString("updated_on"));
-
+                retrievedStudent.setGender(resultSet.getString("gender"));
                 return (retrievedStudent);
             }
         } catch (SQLException e) {
@@ -102,7 +107,7 @@ public class StudentDaoImpl implements StudentDao {
     public void addStudent(Student student) {
         try (Connection connection = db.getConnection()) {
             System.out.println(student.getEmail());
-            String query = "INSERT INTO students (roll_no, first_name, last_name, email, dob, image_url, mobile_no, guardian, guardian_number, class, updated_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO students (roll_no, first_name, last_name, email, dob, image_url, mobile_no, guardian, guardian_number, class, updated_by,gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, student.getRollNo());
             statement.setString(2, student.getFirstName());
@@ -115,7 +120,7 @@ public class StudentDaoImpl implements StudentDao {
             statement.setString(9, student.getGuardianNumber());
             statement.setString(10, student.getClassName());
             statement.setString(11, student.getUpdatedBy());
-
+            statement.setString(12, student.getGender());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

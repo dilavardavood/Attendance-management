@@ -9,7 +9,7 @@ import java.util.List;
 
 @ImplementedBy(StudentServiceImpl.class)
 public interface StudentService {
-    List<Student> getAllStudents();
+    List<Student> getAllStudents(Student student);
     Student getStudentById(Student student);
     void addStudent(Student student);
     List<String> getAllClassNames();

@@ -21,7 +21,7 @@ class Routes(
   TeacherController_2: controllers.TeacherController,
   // @LINE:11
   UserController_3: controllers.UserController,
-  // @LINE:28
+  // @LINE:29
   Assets_4: controllers.Assets,
   val prefix: String
 ) extends GeneratedRouter {
@@ -36,7 +36,7 @@ class Routes(
     TeacherController_2: controllers.TeacherController,
     // @LINE:11
     UserController_3: controllers.UserController,
-    // @LINE:28
+    // @LINE:29
     Assets_4: controllers.Assets
   ) = this(errorHandler, StudentController_0, AttendanceController_1, TeacherController_2, UserController_3, Assets_4, "/")
 
@@ -60,12 +60,13 @@ class Routes(
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """registerUser""", """controllers.UserController.registerUser(request:Request)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAttendanceCountByStatus""", """controllers.AttendanceController.getAttendanceCountByStatus(request:Request)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getStatusCountByDateRange""", """controllers.AttendanceController.getStatusCountByDateRange(request:Request)"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAttendanceDetails""", """controllers.AttendanceController.getAttendanceDetails(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAllClassNames""", """controllers.StudentController.getAllClassNames()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getTeacherById/""" + "$" + """teacherId<[^/]+>""", """controllers.TeacherController.getTeacherById(teacherId:Int)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAllTeachers""", """controllers.TeacherController.getAllTeachers()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAttendanceByRollNo""", """controllers.AttendanceController.getAttendanceByRollNo(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAllStudents""", """controllers.StudentController.getAllStudents(request:Request)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAllAttendance""", """controllers.AttendanceController.getAllAttendance()"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAllAttendance""", """controllers.AttendanceController.getAllAttendance(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getAttendanceByFilter""", """controllers.AttendanceController.getAttendanceByFilter(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     Nil
@@ -256,10 +257,30 @@ class Routes(
   )
 
   // @LINE:15
-  private[this] lazy val controllers_StudentController_getAllClassNames9_route = Route("GET",
+  private[this] lazy val controllers_AttendanceController_getAttendanceDetails9_route = Route("POST",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAttendanceDetails")))
+  )
+  private[this] lazy val controllers_AttendanceController_getAttendanceDetails9_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      AttendanceController_1.getAttendanceDetails(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.AttendanceController",
+      "getAttendanceDetails",
+      Seq(classOf[play.mvc.Http.Request]),
+      "POST",
+      this.prefix + """getAttendanceDetails""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:16
+  private[this] lazy val controllers_StudentController_getAllClassNames10_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAllClassNames")))
   )
-  private[this] lazy val controllers_StudentController_getAllClassNames9_invoker = createInvoker(
+  private[this] lazy val controllers_StudentController_getAllClassNames10_invoker = createInvoker(
     StudentController_0.getAllClassNames(),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -273,11 +294,11 @@ class Routes(
     )
   )
 
-  // @LINE:16
-  private[this] lazy val controllers_TeacherController_getTeacherById10_route = Route("GET",
+  // @LINE:17
+  private[this] lazy val controllers_TeacherController_getTeacherById11_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getTeacherById/"), DynamicPart("teacherId", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_TeacherController_getTeacherById10_invoker = createInvoker(
+  private[this] lazy val controllers_TeacherController_getTeacherById11_invoker = createInvoker(
     TeacherController_2.getTeacherById(fakeValue[Int]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -291,11 +312,11 @@ class Routes(
     )
   )
 
-  // @LINE:17
-  private[this] lazy val controllers_TeacherController_getAllTeachers11_route = Route("GET",
+  // @LINE:18
+  private[this] lazy val controllers_TeacherController_getAllTeachers12_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAllTeachers")))
   )
-  private[this] lazy val controllers_TeacherController_getAllTeachers11_invoker = createInvoker(
+  private[this] lazy val controllers_TeacherController_getAllTeachers12_invoker = createInvoker(
     TeacherController_2.getAllTeachers(),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -309,11 +330,11 @@ class Routes(
     )
   )
 
-  // @LINE:18
-  private[this] lazy val controllers_AttendanceController_getAttendanceByRollNo12_route = Route("GET",
+  // @LINE:19
+  private[this] lazy val controllers_AttendanceController_getAttendanceByRollNo13_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAttendanceByRollNo")))
   )
-  private[this] lazy val controllers_AttendanceController_getAttendanceByRollNo12_invoker = createInvoker(
+  private[this] lazy val controllers_AttendanceController_getAttendanceByRollNo13_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       AttendanceController_1.getAttendanceByRollNo(fakeValue[play.mvc.Http.Request]),
@@ -329,11 +350,11 @@ class Routes(
     )
   )
 
-  // @LINE:19
-  private[this] lazy val controllers_StudentController_getAllStudents13_route = Route("GET",
+  // @LINE:20
+  private[this] lazy val controllers_StudentController_getAllStudents14_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAllStudents")))
   )
-  private[this] lazy val controllers_StudentController_getAllStudents13_invoker = createInvoker(
+  private[this] lazy val controllers_StudentController_getAllStudents14_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       StudentController_0.getAllStudents(fakeValue[play.mvc.Http.Request]),
@@ -349,17 +370,19 @@ class Routes(
     )
   )
 
-  // @LINE:20
-  private[this] lazy val controllers_AttendanceController_getAllAttendance14_route = Route("GET",
+  // @LINE:21
+  private[this] lazy val controllers_AttendanceController_getAllAttendance15_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAllAttendance")))
   )
-  private[this] lazy val controllers_AttendanceController_getAllAttendance14_invoker = createInvoker(
-    AttendanceController_1.getAllAttendance(),
+  private[this] lazy val controllers_AttendanceController_getAllAttendance15_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      AttendanceController_1.getAllAttendance(fakeValue[play.mvc.Http.Request]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.AttendanceController",
       "getAllAttendance",
-      Nil,
+      Seq(classOf[play.mvc.Http.Request]),
       "GET",
       this.prefix + """getAllAttendance""",
       """""",
@@ -367,11 +390,11 @@ class Routes(
     )
   )
 
-  // @LINE:21
-  private[this] lazy val controllers_AttendanceController_getAttendanceByFilter15_route = Route("GET",
+  // @LINE:22
+  private[this] lazy val controllers_AttendanceController_getAttendanceByFilter16_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getAttendanceByFilter")))
   )
-  private[this] lazy val controllers_AttendanceController_getAttendanceByFilter15_invoker = createInvoker(
+  private[this] lazy val controllers_AttendanceController_getAttendanceByFilter16_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       AttendanceController_1.getAttendanceByFilter(fakeValue[play.mvc.Http.Request]),
@@ -387,11 +410,11 @@ class Routes(
     )
   )
 
-  // @LINE:28
-  private[this] lazy val controllers_Assets_versioned16_route = Route("GET",
+  // @LINE:29
+  private[this] lazy val controllers_Assets_versioned17_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("assets/"), DynamicPart("file", """.+""",false)))
   )
-  private[this] lazy val controllers_Assets_versioned16_invoker = createInvoker(
+  private[this] lazy val controllers_Assets_versioned17_invoker = createInvoker(
     Assets_4.versioned(fakeValue[String], fakeValue[Asset]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -472,54 +495,62 @@ class Routes(
       }
   
     // @LINE:15
-    case controllers_StudentController_getAllClassNames9_route(params@_) =>
+    case controllers_AttendanceController_getAttendanceDetails9_route(params@_) =>
       call { 
-        controllers_StudentController_getAllClassNames9_invoker.call(StudentController_0.getAllClassNames())
+        controllers_AttendanceController_getAttendanceDetails9_invoker.call(
+          req => AttendanceController_1.getAttendanceDetails(req))
       }
   
     // @LINE:16
-    case controllers_TeacherController_getTeacherById10_route(params@_) =>
-      call(params.fromPath[Int]("teacherId", None)) { (teacherId) =>
-        controllers_TeacherController_getTeacherById10_invoker.call(TeacherController_2.getTeacherById(teacherId))
+    case controllers_StudentController_getAllClassNames10_route(params@_) =>
+      call { 
+        controllers_StudentController_getAllClassNames10_invoker.call(StudentController_0.getAllClassNames())
       }
   
     // @LINE:17
-    case controllers_TeacherController_getAllTeachers11_route(params@_) =>
-      call { 
-        controllers_TeacherController_getAllTeachers11_invoker.call(TeacherController_2.getAllTeachers())
+    case controllers_TeacherController_getTeacherById11_route(params@_) =>
+      call(params.fromPath[Int]("teacherId", None)) { (teacherId) =>
+        controllers_TeacherController_getTeacherById11_invoker.call(TeacherController_2.getTeacherById(teacherId))
       }
   
     // @LINE:18
-    case controllers_AttendanceController_getAttendanceByRollNo12_route(params@_) =>
+    case controllers_TeacherController_getAllTeachers12_route(params@_) =>
       call { 
-        controllers_AttendanceController_getAttendanceByRollNo12_invoker.call(
-          req => AttendanceController_1.getAttendanceByRollNo(req))
+        controllers_TeacherController_getAllTeachers12_invoker.call(TeacherController_2.getAllTeachers())
       }
   
     // @LINE:19
-    case controllers_StudentController_getAllStudents13_route(params@_) =>
+    case controllers_AttendanceController_getAttendanceByRollNo13_route(params@_) =>
       call { 
-        controllers_StudentController_getAllStudents13_invoker.call(
-          req => StudentController_0.getAllStudents(req))
+        controllers_AttendanceController_getAttendanceByRollNo13_invoker.call(
+          req => AttendanceController_1.getAttendanceByRollNo(req))
       }
   
     // @LINE:20
-    case controllers_AttendanceController_getAllAttendance14_route(params@_) =>
+    case controllers_StudentController_getAllStudents14_route(params@_) =>
       call { 
-        controllers_AttendanceController_getAllAttendance14_invoker.call(AttendanceController_1.getAllAttendance())
+        controllers_StudentController_getAllStudents14_invoker.call(
+          req => StudentController_0.getAllStudents(req))
       }
   
     // @LINE:21
-    case controllers_AttendanceController_getAttendanceByFilter15_route(params@_) =>
+    case controllers_AttendanceController_getAllAttendance15_route(params@_) =>
       call { 
-        controllers_AttendanceController_getAttendanceByFilter15_invoker.call(
+        controllers_AttendanceController_getAllAttendance15_invoker.call(
+          req => AttendanceController_1.getAllAttendance(req))
+      }
+  
+    // @LINE:22
+    case controllers_AttendanceController_getAttendanceByFilter16_route(params@_) =>
+      call { 
+        controllers_AttendanceController_getAttendanceByFilter16_invoker.call(
           req => AttendanceController_1.getAttendanceByFilter(req))
       }
   
-    // @LINE:28
-    case controllers_Assets_versioned16_route(params@_) =>
+    // @LINE:29
+    case controllers_Assets_versioned17_route(params@_) =>
       call(Param[String]("path", Right("/public")), params.fromPath[Asset]("file", None)) { (path, file) =>
-        controllers_Assets_versioned16_invoker.call(Assets_4.versioned(path, file))
+        controllers_Assets_versioned17_invoker.call(Assets_4.versioned(path, file))
       }
   }
 }
